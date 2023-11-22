@@ -8,8 +8,8 @@
       </el-table-column>
       <el-table-column label="操作">
         <template v-slot="{ row }">
-          <el-button type="primary" size="mini" @click="goToVideoProcess(row)">处理视频</el-button>
-          <el-button type="danger" size="mini" @click="deleteVideo(row.id)">删除</el-button>
+          <el-button type="primary" size="default" @click="goToVideoProcess(row)">处理视频</el-button>
+          <el-button type="danger" size="default" @click="deleteVideo(row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
