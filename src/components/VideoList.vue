@@ -1,23 +1,15 @@
 <template>
   <div class="video-list-container">
     <h1>Uploaded Videos</h1>
-    <el-table
-        :data="videos"
-        style="width: 100%">
-      <el-table-column
-          prop="filename"
-          label="视频文件名"
-          width="180">
+    <el-table :data="videos" style="width: 100%">
+      <el-table-column prop="filename" label="视频文件名" width="360">
       </el-table-column>
-      <el-table-column
-          label="操作">
+      <el-table-column prop="upload_time" label="上传时间" width="260">
+      </el-table-column>
+      <el-table-column label="操作">
         <template v-slot="{ row }">
-          <el-button
-              type="danger"
-              size="mini"
-              @click="deleteVideo(row.id)">
-            删除
-          </el-button>
+          <el-button type="primary" size="mini" @click="goToVideoProcess(row)">处理视频</el-button>
+          <el-button type="danger" size="mini" @click="deleteVideo(row.id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -27,6 +19,7 @@
 <script>
 import { ElTable, ElTableColumn, ElButton, ElMessage } from 'element-plus';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
 export default {
   components: {
@@ -41,6 +34,20 @@ export default {
   },
   created() {
     this.fetchVideos();
+  },
+  setup() {
+    const router = useRouter();
+
+    const goToVideoProcess = (video) => {
+      router.push({
+        name: 'VideoProcess',
+        params: { filename: video.filename }
+      });
+    };
+
+    return {
+      goToVideoProcess
+    };
   },
   methods: {
     fetchVideos() {
